@@ -1,4 +1,6 @@
-
+#
+# This is a demo of kalmanLib for a ball falling in 2 dimensions (gravity in only one)
+#
 
 n <- 2*3 # two dimensions
 wvar <- 2

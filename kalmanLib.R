@@ -31,7 +31,16 @@ newtonTimeTranslation <- function(n=6) {
            c(0,0.5,0,1,0,1)),nrow=n,ncol=n) # time-evolution operator
 }
   
-
+rotatedPositionOnlyObsMat <- function(theta=0){
+  matrix(c(c(cos(theta),-sin(theta),0,0,0,0),
+           c(sin(theta),cos(theta),0,0,0,0),
+           c(0,0,0,0,0,0),
+           c(0,0,0,0,0,0),
+           c(0,0,0,0,0,0),
+           c(0,0,0,0,0,0)
+  ),nrow=n,ncol=n) 
+  
+}
 
 #
 # Perform prediction step -- like a time-translation operator in QM

@@ -14,7 +14,8 @@ vvar <- 2
 # observations of the system. This is an arbitrary function that the Kalman
 # filter is trying to follow.
 #
-xo <- matrix(c(0,0,80,0,-10,0),nrow=n,ncol=1) # initial state for phys engine
+# initial state for phys engine: 80 m/s upward velocity, 10 m/s/s downward cceleration
+xo <- matrix(c(0,0,80,0,-10,0),nrow=n,ncol=1) 
 physMod <- function(k){ matrix(c(c(1,0,0,0,0,0),
                                  c(0,1,0,0,0,0),
                                  c(k,0,1,0,0,0),
@@ -43,6 +44,25 @@ H <- matrix(c(c(1,0,0,0,0,0),
               c(0,0,0,0,0,0),
               c(0,0,0,0,0,0)
               ),nrow=n,ncol=n) 
+#
+# Here's a different observation space with the axes rotated
+# 45 degrees and flipped.  This creates coupling between x and
+# y observations (try it and see!)
+#
+Ht <- 
+  matrix(c(c(1,1,0,0,0,0),
+           c(1,-1,0,0,0,0),
+           c(0,0,0,0,0,0),
+           c(0,0,0,0,0,0),
+           c(0,0,0,0,0,0),
+           c(0,0,0,0,0,0)
+  ),nrow=n,ncol=n) 
+
+#
+# Here's one with an arbitrary rotation
+#
+Htheta <- rotatedPositionOnlyObsMat(-pi/4)
+H <- Htheta
 
 #
 # These noise covariance matricies are somewhat arbitrary for now

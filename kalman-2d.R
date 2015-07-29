@@ -21,7 +21,7 @@ physMod <- function(k){ matrix(c(c(1,0,0,0,0,0),
                                  c(0,0.5*k^2,0,k,0,1)),
                                nrow=n,ncol=n)%*%c(xo[1:4],-9.8,-9.8)}
 
-source('./kalmanLib.R')
+source('./kalmanLib.R') 
 
 x <- colVector(0,n) # system initial state
 #

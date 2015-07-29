@@ -19,7 +19,7 @@ physMod <- function(k){ matrix(c(c(1,0,0,0,0,0),
                                  c(0,k,0,1,0,0),
                                  c(0.5*k^2,0,k,0,1,0),
                                  c(0,0.5*k^2,0,k,0,1)),
-                               nrow=n,ncol=n)%*%c(xo[1:4],-9.8,-9.8)}
+                               nrow=n,ncol=n)%*%c(xo[1:4],-9.8,0)}
 
 source('./kalmanLib.R') 
 
@@ -66,6 +66,16 @@ runKal <- function(maxit=5){
     W <- gain(P)
     P <- covP(W)
   }
-  names(retval) <- c('i','x','y','xdot','ydot','xddot','yddot')
-  return(retx)
+  colnam <- c('i','x','y','xdot','ydot','xddot','yddot',
+              'x.p','y.p','xdot.p','ydot.p','xddot.p','yddot.p')
+  names(retval) <- colnam[1:7]
+  names(retx) <- colnam
+    return(retx)
+}
+
+
+testKal <- function(){
+  df <- runKal(maxit=50)
+  plot(df$x)
+  plot(df$y)
 }

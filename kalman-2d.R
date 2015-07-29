@@ -1,10 +1,16 @@
 
+
 n <- 2*3 # two dimensions
 wvar <- 2
 vvar <- 2
 
 #
 # Define motion of object at k-th time step
+#
+#
+# This is the model that the residual() function will use to calculate
+# observations of the system. This is an arbitrary function that the Kalman
+# filter is trying to follow.
 #
 xo <- matrix(c(0,0,80,0,-10,0),nrow=n,ncol=1) # initial state for phys engine
 physMod <- function(k){ matrix(c(c(1,0,0,0,0,0),
@@ -17,27 +23,29 @@ physMod <- function(k){ matrix(c(c(1,0,0,0,0,0),
 
 source('./kalmanLib.R')
 
-x <- colVector(0,n) # state
-Fm <- matrix(c(c(1,0,0,0,0,0),
-               c(0,1,0,0,0,0),
-               c(1,0,1,0,0,0),
-               c(0,1,0,1,0,0),
-               c(0.5,0,1,0,1,0),
-               c(0,0.5,0,1,0,1)
-               ),nrow=n,ncol=n) # time-evolution operator
+x <- colVector(0,n) # system initial state
+#
+# Physics 
+#
+Fm <- newtonTimeTranslation()
 G <- matrix(c(0.5,0,1,0,0,0),nrow=n,ncol=1) # control input -> state t-form
 u <- 0 # control input
 
 I <- eye(n) # identity matrix
 W <- eye(n) # Kalman Gain (and obs->state t-form)
+# state->obs t-form (H) turns time and velocity state into observations
 H <- matrix(c(c(1,0,0,0,0,0),
               c(0,1,0,0,0,0),
               c(0,0,0,0,0,0),
               c(0,0,0,0,0,0),
               c(0,0,0,0,0,0),
               c(0,0,0,0,0,0)
-              ),nrow=n,ncol=n) # state->obs t-form
-P <- eye(n) * 10 # state covariance "intuition
+              ),nrow=n,ncol=n) 
+
+#
+# These noise covariance matricies are somewhat arbitrary for now
+#
+P <- eye(n) * 10 # state covariance "intuition"
 #Q <- sqMatrix(x=0,n=n) # process noise covariance "all zeros"
 Q <- diag(vvar,nrow=n,ncol=n)
 R <- diag(wvar,nrow=n,ncol=n) # measurement noise covariance

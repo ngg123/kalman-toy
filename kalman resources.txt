@@ -1,0 +1,7 @@
+http://bilgin.esme.org/BitsBytes/KalmanFilterforDummies.aspx
+https://en.wikipedia.org/wiki/Kalman_filter
+https://en.wikipedia.org/wiki/Covariance
+https://en.wikipedia.org/wiki/Extended_Kalman_filter
+
+Really good:
+http://biorobotics.ri.cmu.edu/papers/sbp_papers/integrated3/kleeman_kalman_basics.pdf

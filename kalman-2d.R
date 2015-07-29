@@ -33,7 +33,7 @@ u <- 0 # control input
 
 I <- eye(n) # identity matrix
 W <- eye(n) # Kalman Gain (and obs->state t-form)
-# state->obs t-form (H) turns time and velocity state into observations
+# state->obs t-form (H) turns x- and y-position state into observations
 H <- matrix(c(c(1,0,0,0,0,0),
               c(0,1,0,0,0,0),
               c(0,0,0,0,0,0),
